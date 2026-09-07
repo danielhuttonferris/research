@@ -11,8 +11,12 @@
 <meta property="og:title" content="Daniel Hutton Ferris | Political Theorist">
 <meta property="og:description" content="A political theorist at Newcastle University. Ungated drafts of his published papers.">
 <meta property="og:url" content="https://danielhuttonferris.com/">
-<meta property="og:image" content="https://danielhuttonferris.com/assets/photo.jpg">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://danielhuttonferris.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Daniel Hutton Ferris, Lecturer in Political Theory and Philosophy, Newcastle University">
+<meta property="og:site_name" content="Daniel Hutton Ferris">
+<meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%232E5C4E'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='52' fill='%23F6F7F5' text-anchor='middle'%3EDHF%3C/text%3E%3C/svg%3E">
 
@@ -36,7 +40,7 @@
   --sans:  "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 
   --measure: 63ch;
-  --rail: 15rem;
+  --rail: 16rem;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -118,8 +122,10 @@ a { color: inherit; }
   .rail { position: static; gap: 1.5rem; }
 }
 
+.rail-id { display: flex; flex-direction: column; gap: 1.75rem; }
+
 .portrait {
-  width: 7.5rem;
+  width: 8.5rem;
   aspect-ratio: 4 / 5;
   border-radius: 2px;
   background: var(--accent-tint);
@@ -199,6 +205,7 @@ a { color: inherit; }
 @media (max-width: 900px) {
   .rail-links { flex-direction: row; flex-wrap: wrap; gap: .35rem 1.25rem; }
 }
+
 
 /* ── Main column ────────────────────────────────────────────────────────── */
 .main { display: flex; flex-direction: column; gap: clamp(2.75rem, 5vw, 4rem); min-width: 0; }
@@ -303,6 +310,96 @@ h2 + h3 { margin-top: 0; }
   opacity: .75;
 }
 
+/* Latest publication */
+.latest {
+  background: var(--accent-tint);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 3px 3px 0;
+  padding: 1.15rem 1.4rem 1.25rem;
+  max-width: var(--measure);
+}
+.latest-label {
+  margin: 0 0 .5rem;
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.latest-title {
+  font-family: var(--serif);
+  font-size: 1.3125rem;
+  line-height: 1.3;
+  font-weight: 400;
+  margin: 0 0 .3rem;
+  text-wrap: pretty;
+}
+.latest-title a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+.latest-title a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+.latest-meta { margin: 0; font-size: .9375rem; color: var(--ink-soft); }
+.latest-meta cite { font-style: italic; }
+.latest .entry-links { margin-top: .75rem; }
+
+/* Abstracts */
+.abs-toggle {
+  font-family: inherit;
+  font-size: .8125rem;
+  color: var(--accent);
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  padding: 0 0 1px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: baseline;
+  gap: .35rem;
+  transition: border-color .15s ease;
+}
+.abs-toggle:hover { border-bottom-color: var(--accent); }
+.abs-toggle::after {
+  content: "\25B8";
+  font-size: .8em;
+  display: inline-block;
+  transition: transform .18s ease;
+}
+.abs-toggle[aria-expanded="true"]::after { transform: rotate(90deg); }
+.abs {
+  margin-top: .9rem;
+  padding: .9rem 1.15rem;
+  border-left: 2px solid var(--rule);
+  border-radius: 0 3px 3px 0;
+  background: var(--paper-raised);
+  font-size: .9375rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: var(--measure);
+}
+.abs p { margin: 0; }
+.abs em { font-style: italic; }
+.abs[hidden] { display: none; }
+
+/* Contact details in the rail */
+.rail-contact { display: flex; flex-direction: column; gap: .9rem; }
+.rail-block p {
+  margin: 0;
+  font-size: .8125rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  overflow-wrap: anywhere;
+}
+.rail-label {
+  margin: 0 0 .3rem;
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.rail-block a { color: var(--accent); text-underline-offset: 2px; }
+@media (max-width: 900px) {
+  .rail-contact { flex-direction: row; flex-wrap: wrap; gap: 1.5rem; }
+}
+
 .entry-note {
   display: inline-block;
   font-size: .75rem;
@@ -337,12 +434,91 @@ h2 + h3 { margin-top: 0; }
 @media (max-width: 640px) { .cols { columns: 1; } }
 
 .tags { display: flex; flex-wrap: wrap; gap: .4rem; max-width: var(--measure); }
-.tag {
+/* Sticky research-interest bar — stays on screen beside the papers it filters */
+.themebar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--paper);
+  padding: .9rem 0 .85rem;
+  border-bottom: 1px solid var(--rule);
+}
+.themebar-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: var(--measure);
+  margin-bottom: .7rem;
+}
+.themebar-label {
+  margin: 0;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.reset {
+  font-family: inherit;
   font-size: .8125rem;
+  color: var(--accent);
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  padding: 0 0 1px;
+  cursor: pointer;
+}
+.reset:hover { border-bottom-color: var(--accent); }
+
+.tag-n {
+  font-size: .6875rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-faint);
+  transition: color .18s ease;
+}
+.tag:hover .tag-n,
+.tag:focus-visible .tag-n,
+.tag[aria-pressed="true"] .tag-n { color: var(--accent); }
+
+/* Pinning a theme hides everything it doesn't cover */
+#publications.theme-filtered .entry:not(.is-match) { display: none; }
+#publications.theme-filtered .entry.is-match {
+  opacity: 1;
+  background: none;
+  box-shadow: none;
+}
+.entries[hidden], h3[hidden] { display: none; }
+
+.tag {
+  font-family: inherit;
+  font-size: .8125rem;
+  line-height: 1.4;
   color: var(--ink-soft);
+  background: transparent;
   border: 1px solid var(--rule);
   border-radius: 2px;
   padding: .2rem .55rem;
+  cursor: pointer;
+  transition: color .18s ease, border-color .18s ease, background-color .18s ease;
+}
+.tag:hover,
+.tag:focus-visible,
+.tag[aria-pressed="true"] {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-tint);
+}
+
+/* Hovering a theme lifts the papers it covers and lets the rest recede */
+#publications .entry {
+  transition: opacity .22s ease, background-color .22s ease, box-shadow .22s ease;
+}
+#publications.theme-active .entry { opacity: .3; }
+#publications.theme-active .entry.is-match {
+  opacity: 1;
+  background: var(--accent-tint);
+  box-shadow: -0.85rem 0 0 var(--accent-tint), 0.85rem 0 0 var(--accent-tint);
 }
 
 /* Contact */
@@ -366,6 +542,72 @@ footer {
   justify-content: space-between;
 }
 footer a { color: inherit; }
+/* ── Phones ─────────────────────────────────────────────────────────────────
+   The rail becomes display:contents so its parts can be reordered around the
+   main column: identity on top, papers next, contact details at the foot. */
+@media (max-width: 900px) {
+  .shell {
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+  }
+  .rail { display: contents; }
+
+  /* Nested flex columns default to min-width:auto, which lets a wide child
+     stretch its ancestors and scroll the whole page sideways. Pin them. */
+  .shell > *, .main > * { min-width: 0; max-width: 100%; }
+  .main { width: 100%; }
+
+  .rail-id {
+    order: 1;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.1rem;
+  }
+  .rail-id .portrait { width: 5.75rem; flex: none; }
+  .rail-name { font-size: 1.375rem; }
+  .rail-role { font-size: .8125rem; }
+
+  .main         { order: 2; }
+  .rail-contact { order: 3; }
+  .rail-links   { order: 4; }
+  .nav          { display: none; }   /* page order now does this job */
+
+  /* One swipeable row of chips instead of three wrapped lines */
+  .themebar {
+    padding: .7rem 0 .65rem;
+    width: 100%;
+    min-width: 0;            /* let the chip row scroll itself, not the page */
+  }
+  /* Soft edge so a clipped chip reads as "swipe for more", not as a bug */
+  .themebar::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: .65rem;
+    width: 2.25rem;
+    height: 2.4rem;
+    background: linear-gradient(to right, transparent, var(--paper));
+    pointer-events: none;
+  }
+  .themebar-head { margin-bottom: .55rem; }
+  #themes {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    min-width: 0;
+    padding-bottom: .1rem;
+  }
+  #themes::-webkit-scrollbar { display: none; }
+  .tag {
+    flex: none;
+    white-space: nowrap;
+    padding: .4rem .7rem;   /* comfortable tap target */
+  }
+}
+
 </style>
 </head>
 <body>
@@ -375,30 +617,44 @@ footer a { color: inherit; }
 
   <!-- ══ RAIL ══ -->
   <aside class="rail">
+    <div class="rail-id">
     <div class="portrait">
       <span>DHF</span>
-      <img src="assets/photo.jpg" alt="Daniel Hutton Ferris" onerror="this.remove()">
+      <img src="assets/photo.jpg" alt="Daniel Hutton Ferris"
+           onerror="if(this.dataset.retried!=='1'){this.dataset.retried='1';this.src='assets/photo.JPG';}else{this.remove();}">
     </div>
 
     <div>
       <h1 class="rail-name">Daniel<br>Hutton Ferris</h1>
       <p class="rail-role">Lecturer in Political Theory&nbsp;and Philosophy<br>Newcastle University</p>
     </div>
+    </div>
 
     <nav class="nav" aria-label="Sections">
       <ul>
         <li><a href="#about">About</a></li>
         <li><a href="#publications">Publications</a></li>
-        <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
+
+    <div class="rail-contact">
+      <div class="rail-block">
+        <p class="rail-label">Email</p>
+        <p><a href="mailto:daniel.huttonferris@newcastle.ac.uk">daniel.huttonferris@newcastle.ac.uk</a></p>
+      </div>
+      <div class="rail-block">
+        <p class="rail-label">Office</p>
+        <p>Henry Daysh Building 456<br>Newcastle University<br>Newcastle upon Tyne NE1 7RU</p>
+      </div>
+    </div>
 
     <div class="rail-links">
       <a href="assets/cv.pdf">Curriculum vitae</a>
       <a href="https://scholar.google.com/citations?user=_8-D-PQAAAAJ&amp;hl=en">Google Scholar</a>
       <a href="https://www.ncl.ac.uk/gps/staff/profile/danielhuttonferris.html">Newcastle profile</a>
+      <a href="https://philpeople.org/profiles/daniel-hutton-ferris">PhilPeople</a>
+      <a href="https://www.researchgate.net/profile/Daniel-Hutton-Ferris">ResearchGate</a>
       <a href="https://www.linkedin.com/in/daniel-hutton-ferris-22b4841b4/">LinkedIn</a>
-      <a href="mailto:daniel.huttonferris@newcastle.ac.uk">Email</a>
     </div>
   </aside>
 
@@ -415,14 +671,33 @@ footer a { color: inherit; }
         </p>
       </div>
 
-      <h3>Research interests</h3>
-      <div class="tags">
-        <span class="tag">democratic theory</span>
-        <span class="tag">representation</span>
-        <span class="tag">elections</span>
-        <span class="tag">citizens' assemblies</span>
-        <span class="tag">history of political thought</span>
-        <span class="tag">comparative political theory</span>
+    </section>
+
+    <div class="themebar">
+      <div class="themebar-head">
+        <p class="themebar-label">Research interests</p>
+        <button type="button" class="reset" id="reset-themes" hidden>Show all papers</button>
+      </div>
+      <div class="tags" id="themes">
+        <button type="button" class="tag" data-theme="democracy" aria-pressed="false">democracy <span class="tag-n">7</span></button>
+        <button type="button" class="tag" data-theme="representation" aria-pressed="false">representation <span class="tag-n">4</span></button>
+        <button type="button" class="tag" data-theme="citizens-assemblies" aria-pressed="false">citizens&rsquo; assemblies <span class="tag-n">3</span></button>
+        <button type="button" class="tag" data-theme="elections" aria-pressed="false">elections <span class="tag-n">2</span></button>
+        <button type="button" class="tag" data-theme="comparative-political-theory" aria-pressed="false">comparative political theory <span class="tag-n">2</span></button>
+        <button type="button" class="tag" data-theme="history-of-political-thought" aria-pressed="false">history of political thought <span class="tag-n">1</span></button>
+      </div>
+    </div>
+
+
+    <section id="latest" aria-label="Latest publication">
+      <div class="latest">
+        <p class="latest-label">Latest</p>
+        <p class="latest-title"><a href="https://onlinelibrary.wiley.com/doi/10.1111/bioe.70111">Should We Use Citizens&rsquo; Assemblies to Make Health Policy?</a></p>
+        <p class="latest-meta">With <a href="https://johanneskniess.wordpress.com/">Johannes Kniess</a>. <cite>Bioethics</cite>, 2026.</p>
+        <div class="entry-links">
+          <span class="entry-note">Online first</span>
+          <a href="https://onlinelibrary.wiley.com/doi/10.1111/bioe.70111">Journal (open access)</a>
+        </div>
       </div>
     </section>
 
@@ -431,7 +706,7 @@ footer a { color: inherit; }
 
       <h3>Peer-reviewed articles</h3>
       <div class="entries">
-        <div class="entry">
+        <div class="entry" data-themes="democracy citizens-assemblies">
           <div class="entry-year">2026</div>
           <div class="entry-body">
             <p class="entry-title">Should We Use Citizens&rsquo; Assemblies to Make Health Policy?</p>
@@ -440,9 +715,12 @@ footer a { color: inherit; }
               <span class="entry-note">Online first</span>
               <a href="https://onlinelibrary.wiley.com/doi/10.1111/bioe.70111">Journal (open access)</a>
             </div>
+            <div class="abs" id="abs-citizens-assemblies">
+              <p>This article assesses the normative case for using citizens' assemblies—small deliberative forums of randomly selected citizens—in health policymaking. Although they are increasingly popular, their normative justification remains underexplored. We reconstruct three possible rationales: Norman Daniels's 'Accountability for Reasonableness' (A4R) framework; an epistemic argument emphasising the value of outsider perspectives for making more just decisions; and a deliberative democratic argument focused on promoting legitimacy in the bureaucracy. We argue that A4R offers only weak and contingent support for citizens' assemblies. The epistemic argument highlights the value of lay perspectives in identifying epistemic blind spots but lacks clarity on when it outperforms expert knowledge. The deliberative democratic rationale is more compelling in potentially generating some kinds of legitimacy but applies only in a limited range of scenarios. We therefore conclude that the normative case for using citizens' assemblies is not as strong as their popularity in policymaking would lead us to believe.</p>
+            </div>
           </div>
         </div>
-        <div class="entry">
+        <div class="entry" data-themes="democracy representation elections comparative-political-theory">
           <div class="entry-year">2026</div>
           <div class="entry-body">
             <p class="entry-title">Decolonizing Democratic Theory: A Democratic Case for Unelected Indigenous Governments</p>
@@ -451,9 +729,12 @@ footer a { color: inherit; }
               <span class="entry-note">Online first</span>
               <a href="https://www.cambridge.org/core/journals/canadian-journal-of-political-science-revue-canadienne-de-science-politique/article/decolonizing-democratic-theory-a-democratic-case-for-unelected-indigenous-governments/365F914228168B6C99A550FEF8E716F2">Journal (open access)</a>
             </div>
+            <div class="abs" id="abs-decolonizing">
+              <p>Many Indigenous nations in the settler state of Canada have two governments: elective band councils and a customary leadership not subject to regular elections. When these groups struggle for authority, outsiders often side with the band councils on the assumption that elections are necessary for a government to be democratic. But this assumption reflects an unwarranted electoral bias. In fact, non-elective customary governments can be more democratic than elected band councils. As we show, customary governments sometimes draw wider participation from Indigenous communities, and they can create responsiveness through non-electoral mechanisms that promote voice and exit. This gives Canada a democratic reason to promote Indigenous democratic innovation through policy and legal reforms that facilitate state recognition of customary governments.</p>
+            </div>
           </div>
         </div>
-        <div class="entry">
+        <div class="entry" data-themes="democracy representation elections">
           <div class="entry-year">2025</div>
           <div class="entry-body">
             <p class="entry-title">Deliberative Responsiveness: The Philosophical Limits of the Median Voter Theory and the Value of Ranked Choice Voting in a Polarized United States</p>
@@ -463,9 +744,12 @@ footer a { color: inherit; }
               <a href="https://www.journals.uchicago.edu/doi/abs/10.1086/735632">Journal</a>
               <a href="assets/papers/deliberative-responsiveness-draft.pdf" target="_blank" rel="noopener" data-pdf>Ungated draft (PDF)</a>
             </div>
+            <div class="abs" id="abs-deliberative-responsiveness">
+              <p>Median voter models capture something important about democratic politics but suffer from indeterminacy, imply that representatives should act unjustly when constituents prefer it, and embody an atomistic conception of democracy that neglects the fundamentally co-operative nature of collective self-rule. We can salvage their crucial insights by incorporating them into a hybrid conception of responsiveness that also draws on deliberative democratic theory: representatives should defer to median preferences but also engage in respectful public reasoning with citizens and their proxies when their decisions pertain to matters of basic justice or constitutional essentials. The change in perspective this implies can be illustrated by considering the current wave of ranked choice voting reforms in the United States, which can be understood as a way of encouraging representatives to talk to constituents in the right way, as well as tracking their preferences, and therefore of improving the deliberative responsiveness of the American representative system.</p>
+            </div>
           </div>
         </div>
-        <div class="entry">
+        <div class="entry" data-themes="democracy representation citizens-assemblies">
           <div class="entry-year">2025</div>
           <div class="entry-body">
             <p class="entry-title">Lottocracy or Psephocracy? Democracy, Elections, and Random Selection</p>
@@ -473,9 +757,12 @@ footer a { color: inherit; }
             <div class="entry-links">
               <a href="https://journals.sagepub.com/doi/10.1177/14748851231220555">Journal (open access)</a>
             </div>
+            <div class="abs" id="abs-lottocracy">
+              <p>Would randomly selecting legislators be more democratic than electing them? Lottocrats argue (reasonably) that contemporary regimes are not very democratic and (more questionably) that replacing elections with sortition would mitigate elite capture and improve political decisions. I argue that a lottocracy would, in fact, be likely to perform worse on these metrics than a system of representation that appoints at least some legislators using election – a psephocracy (from <em>psēphizein</em>, to vote). Even today's actually existing psephocracies, which are far from ideally democratic, are better suited than a lottocracy would be to meet the <em>demands of democratic citizenship</em> (politics must be legible to ordinary people, who must have low-cost opportunities to participate) and the <em>demands of democratic leadership</em> (powerful representatives should be specialized and constrained by competitions for popular support). Democrats therefore have weighty instrumental reasons to reject lottocracy and work to democratize psephocracy, instead.</p>
+            </div>
           </div>
         </div>
-        <div class="entry">
+        <div class="entry" data-themes="democracy representation">
           <div class="entry-year">2024</div>
           <div class="entry-body">
             <p class="entry-title">Centripetal Representation</p>
@@ -485,9 +772,12 @@ footer a { color: inherit; }
               <a href="assets/papers/centripetal-representation-draft.pdf" target="_blank" rel="noopener" data-pdf>Ungated draft (PDF)</a>
               <a href="https://ajps.org/2022/09/01/centripetal-representation/">AJPS summary</a>
             </div>
+            <div class="abs" id="abs-centripetal">
+              <p>This article develops a general theory about how representative systems might best promote democratic legitimacy – one that recognizes the potential benefits of networked responsiveness between diverse kinds of representative but is alert to the threat of fragmentation and the value of democratic simplicity. Deliberative democratic and constructivist theorists of representation tend to agree that more pluralistic systems of representation are more democratic. I will argue, however, that fragmentation can bias responsiveness toward elites and that democratic simplifications can help ordinary people engage with, understand, and influence their representatives, pushing back against gridlock, collusion, and capture by the powerful. Systems of representation are most likely to capture the benefits of pluralism and heterogeneity while avoiding fragmentation when their structure is "centripetal": with power and influence moving inwards, via processes of networked responsiveness, from broadly inclusive peripheries to democratically simple cores.</p>
+            </div>
           </div>
         </div>
-        <div class="entry">
+        <div class="entry" data-themes="democracy history-of-political-thought comparative-political-theory">
           <div class="entry-year">2023</div>
           <div class="entry-body">
             <p class="entry-title">Democratic Peace Beyond Westphalia: Kang and Kant</p>
@@ -496,15 +786,21 @@ footer a { color: inherit; }
               <a href="https://brill.com/view/journals/cpt/3/1/article-p32_002.xml">Journal</a>
               <a href="assets/papers/democratic-peace-beyond-westphalia-draft.pdf" target="_blank" rel="noopener" data-pdf>Ungated draft (PDF)</a>
             </div>
+            <div class="abs" id="abs-democratic-peace">
+              <p>This piece brings into dialogue two philosophically profound and hugely influential texts on the nature and requisites of international peace: Immanuel Kant's "Towards Perpetual Peace" (<em>zum Ewigen Frieden</em>) and Kang Youwei's 康有为 <em>Book of Great Unity</em> 大同书. Both texts articulate bold visions of a world without international war and embed concrete institutional plans for establishing peace within strongly progressivist philosophies of history. But Kang and Kant disagree in some crucial respects. Most significantly: whilst Kant imagines a liberal peace between sovereign states, Kang argues that enduring pacification would have to be enforced by a communitarian and deliberative democratic polity spanning the earth. Reading the <em>Book of Great Unity</em> alongside "Perpetual Peace" raises timely and challenging questions for contemporary Kantians and, more generally, for liberal internationalist political theorists and scholars of international relations.</p>
+            </div>
           </div>
         </div>
-        <div class="entry">
+        <div class="entry" data-themes="democracy citizens-assemblies">
           <div class="entry-year">2019</div>
           <div class="entry-body">
             <p class="entry-title">Civic Virtue in the Deliberative System</p>
             <p class="entry-meta"><cite>Journal of Deliberative Democracy</cite> 15(1), art. 6.</p>
             <div class="entry-links">
               <a href="https://delibdemjournal.org/article/id/589/">Journal (open access)</a>
+            </div>
+            <div class="abs" id="abs-civic-virtue">
+              <p>The normative stability of a deliberative and democratic political order and the creativity and quality of the decisions its produces depend on citizens developing civic orientations and capacities through participation in deliberative events aiming at the <em>cooperative</em> solution of political problems. That, at least, is the claim made by critics of the systems approach to deliberative democracy, who argue that its proponents have lost sight of the educative function that respectful public reasoning plays for citizens. In this article I offer a response to this line of argument. There is no good philosophical reason to suppose that only unitary deliberation can perform an educative function for citizens. The kinds of informal and uncooperative public speech that occur in distributed deliberative processes can also develop participants' civic capacities and civic virtue – and not merely through their systemic effects. This is an insight that should encourage us to rethink the design and facilitation of deliberative forums and pay more attention to citizens' everyday deliberation.</p>
             </div>
           </div>
         </div>
@@ -545,28 +841,6 @@ footer a { color: inherit; }
 
     </section>
 
-    <section id="contact">
-      <h2>Contact</h2>
-      <div class="contact">
-        <div>
-          <h4>Email</h4>
-          <p><a href="mailto:daniel.huttonferris@newcastle.ac.uk">daniel.huttonferris@newcastle.ac.uk</a></p>
-        </div>
-        <div>
-          <h4>Office</h4>
-          <p>Henry Daysh Building 456<br>Newcastle University<br>Newcastle upon Tyne NE1 7RU<br>United Kingdom</p>
-        </div>
-        <div>
-          <h4>Elsewhere</h4>
-          <p>
-            <a href="assets/cv.pdf">CV (PDF)</a><br>
-            <a href="https://scholar.google.com/citations?user=_8-D-PQAAAAJ&amp;hl=en">Google Scholar</a><br>
-            <a href="https://www.ncl.ac.uk/gps/staff/profile/danielhuttonferris.html">Newcastle profile</a>
-          </p>
-        </div>
-      </div>
-    </section>
-
     <footer>
       <span>&copy; <span id="yr">2026</span> Daniel Hutton Ferris</span>
       <span>Newcastle upon Tyne</span>
@@ -577,6 +851,81 @@ footer a { color: inherit; }
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Abstracts ship visible so they work without JS and stay indexable;
+  // here we collapse them and add a toggle to each publication's link row.
+  document.querySelectorAll('.abs').forEach(function (panel) {
+    var row = panel.previousElementSibling;
+    if (!row || !row.classList.contains('entry-links')) return;
+    panel.hidden = true;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'abs-toggle';
+    btn.textContent = 'Abstract';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', panel.id);
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      panel.hidden = open;
+    });
+    row.appendChild(btn);
+  });
+
+  // Research-interest tags. Hovering one previews the papers it covers;
+  // clicking pins it and filters the list down to just those papers.
+  (function () {
+    var tags  = document.querySelectorAll('#themes .tag');
+    var pubs  = document.getElementById('publications');
+    var reset = document.getElementById('reset-themes');
+    if (!tags.length || !pubs) return;
+
+    var entries = pubs.querySelectorAll('.entry');
+    var groups  = [];
+    pubs.querySelectorAll('.entries').forEach(function (list) {
+      groups.push({ list: list, head: list.previousElementSibling });
+    });
+    var pinned = null;
+
+    function mark(theme) {
+      entries.forEach(function (e) {
+        var list = (e.getAttribute('data-themes') || '').split(' ');
+        e.classList.toggle('is-match', !!theme && list.indexOf(theme) !== -1);
+      });
+    }
+
+    function preview(theme) {
+      if (pinned) return;
+      pubs.classList.toggle('theme-active', !!theme);
+      mark(theme);
+    }
+
+    function pin(theme) {
+      pinned = theme;
+      mark(theme);
+      pubs.classList.toggle('theme-active', !!theme);
+      pubs.classList.toggle('theme-filtered', !!theme);
+      groups.forEach(function (g) {
+        var hide = !!theme && !g.list.querySelector('.entry.is-match');
+        g.list.hidden = hide;
+        if (g.head && g.head.tagName === 'H3') g.head.hidden = hide;
+      });
+      tags.forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.getAttribute('data-theme') === theme));
+      });
+      if (reset) reset.hidden = !theme;
+    }
+
+    tags.forEach(function (btn) {
+      var theme = btn.getAttribute('data-theme');
+      btn.addEventListener('mouseenter', function () { preview(theme); });
+      btn.addEventListener('mouseleave', function () { preview(null); });
+      btn.addEventListener('focus',      function () { preview(theme); });
+      btn.addEventListener('blur',       function () { preview(null); });
+      btn.addEventListener('click',      function () { pin(pinned === theme ? null : theme); });
+    });
+    if (reset) reset.addEventListener('click', function () { pin(null); });
+  })();
 </script>
 
 <script type="application/ld+json">
@@ -597,13 +946,15 @@ footer a { color: inherit; }
     { "@type": "CollegeOrUniversity", "name": "University of Oxford" }
   ],
   "knowsAbout": [
-    "Democratic theory",
+    "Democracy",
     "Novel forms of representation and participation",
     "History of political thought",
     "Comparative political theory"
   ],
   "sameAs": [
     "https://scholar.google.com/citations?user=_8-D-PQAAAAJ&hl=en",
+    "https://philpeople.org/profiles/daniel-hutton-ferris",
+    "https://www.researchgate.net/profile/Daniel-Hutton-Ferris",
     "https://www.linkedin.com/in/daniel-hutton-ferris-22b4841b4/",
     "https://www.ncl.ac.uk/gps/staff/profile/danielhuttonferris.html"
   ]
